@@ -4,8 +4,8 @@
   var bcrypt = require('bcryptjs');
 
 
-  exports.getInfo = () => {
-    const q = `SELECT * FROM `
+  exports.getImages = () => {
+    const q = `SELECT * FROM images;`
     return db.query(q).then(results => {
       return results.rows
     }).catch(err => {
@@ -14,7 +14,10 @@
   }
 
   exports.getAllRooms = () => {
-    const q = `SELECT * FROM ;`;
+    const q = `SELECT room_name, description, occupancy, price, amenities, url, images.id
+              FROM rooms
+              JOIN images
+              ON rooms.id = images.room_id;`;
     return db.query(q).then(results => {
       return results.rows
     }).catch(err=> {
@@ -23,7 +26,7 @@
   }
 
   exports.insertPageImage = (file, pageName) => {
-    const q = ` ;`;
+    const q = `INSERT INTO images (url, page) VALUES ($1, $2);`;
     const params = [file, pageName];
     return db.query(q, params).then(results => {
       console.log('successfully inserted')
@@ -33,28 +36,8 @@
     })
   }
 
-  exports.getAbout = () => {
-    const q = `SELECT * FROM about;`
-    return db.query(q).then(results => {
-      return results.rows[0];
-    }).catch(err => {
-      console.log('getAbout db err: ', err)
-    })
-  }
-
-  exports.updateAbout = text => {
-    const q = `UPDATE about SET description = $1;`;
-    const params = [text];
-    return db.query(q, params).then(results => {
-      console.log('successfully updated')
-      return results.rows[0]
-    }).catch(err => {
-      console.log('updateAbout db err: ', err)
-    })
-  }
-
   exports.newRoom = (name, desc, occupancy, price, amenities) => {
-    const q = `INSERT INTO rooms `
+    const q = `INSERT INTO rooms (room_name, description, occupancy, price, amenities) VALUES ($1, $2, $3, $4, $5)`
     const params = [name, desc, occupancy, price, amenities];
     return db.query(q, params).then(results => {
       console.log('new room insert!')
@@ -76,12 +59,24 @@
   }
 
   exports.newQuestion = (question, answer, sectionName) => {
-    const q = `INSERT INTO faq (question, answer, section_name) VALUES ($1, $2, $3)`;
+    const q = `INSERT INTO faq (question, answer, section_name) VALUES ($1, $2, $3)
+              RETURNING id`;
     const params = [question, answer, sectionName];
     return db.query(q, params).then(results => {
       return results.rows[0]
     }).catch(err => {
       console.log('newQuestion db err: ', err)
+    })
+  }
+
+  exports.getRecentFAQ = (id) => {
+    const q = `SELECT * FROM faq_questions
+              WHERE id = $1;`
+    const params = [id];
+    return db.query(q, params).then(results => {
+      return results.rows[0]
+    }).catch(err => {
+      console.log('getRecentFAQ db err: ', err)
     })
   }
 
@@ -92,6 +87,16 @@
       return results.rows
     }).catch(err => {
       console.log('getFAQ db err: ', err)
+    })
+  }
+
+  exports.updateAddress  = (data) => {
+    const q = `UPDATE address SET name = $1, street = $2, city = $3, state = $4, country = $5, zip = $6, phone = $7, email = $8;`
+    const params = [data.name, data.street, data.city, data.state, data.country, data.zip, data.phone, data.email];
+    return db.query(q, params).then(results => {
+      return results.rows[0]
+    }).catch(err => {
+      console.log('updateAddress db err: ', err)
     })
   }
 

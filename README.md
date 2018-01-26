@@ -2,6 +2,13 @@
 
 <p>The purpose of this project is to create an easy interface for hostel-owners to update their websites through a secure login.</p>
 
+<h2>TechStack</h2>
+<ul>
+  <li>Backend: Node.js</li>
+  <li>Frontend: React.js, Redux</li>
+  <li>Database Management: PostgresSQL</li>
+</ul>
+
 <h2>Feature In-Dev</h2>
 <ul>
   <li>Image upload for rooms and homepage</li>

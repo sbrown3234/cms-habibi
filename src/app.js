@@ -8,46 +8,40 @@ export default class App extends React.Component {
   constructor (props) {
     super(props);
     this.state = {
-      toggleForm: false,
+      showForm: false,
     };
 
-    this.addRoom = this.addRoom.bind(this)
     this.handleChange = this.handleChange.bind(this)
-    this.addImage = this.addImage.bind(this)
-    this.handlePicture = this.handlePicture.bind(this)
-    this.addQuestion = this.addQuestion.bind(this)
-    this.addSection = this.addSection.bind(this)
-    this.showForm = this.showForm.bind(this)
-    this.upload = this.upload.bind(this)
-    this.update = this.update.bind(this)
+    this.toggleForm = this.toggleForm.bind(this)
   }
 
-  componentDidMount(){}
+  handleChange(e) {
+    this.setState({
+      [e.target.name]: e.target.value
+    })
+  }
+
+  toggleForm() {
+    this.setState({
+      showForm: !this.state.showForm
+    })
+  }
+
+  componentDidMount(){
+    
+  }
 
 
 
   render() {
     console.log('rendering app')
 
-    if(!this.state) {
-      return (
-        <div>Loading..... </div>
-      )
-    }
-
-    const { toggleForm } = this.state
+    const { showForm } = this.state
 
     const children = React.cloneElement(this.props.children, {
-      toggleForm,
-      addRoom: this.addRoom,
+      showForm,
       handleChange: this.handleChange,
-      addImage: this.addImage,
-      handlePictures: this.handlePictures,
-      addQuestion: this.addQuestion,
-      addSection: this.addSection,
-      showForm: this.showForm,
-      upload: this.upload,
-      update: this.update
+      toggleForm: this.toggleForm
     })
 
     return (

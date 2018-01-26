@@ -1,5 +1,5 @@
 DROP TABLE IF EXISTS admin;
-DROP TABLE IF EXISTS about;
+DROP TABLE IF EXISTS address;
 DROP TABLE IF EXISTS rooms;
 DROP TABLE IF EXISTS images;
 DROP TABLE IF EXISTS faq_sections;
@@ -11,8 +11,15 @@ CREATE TABLE admin (
   secret varchar(255)
 );
 
-CREATE TABLE about (
-  description text
+CREATE TABLE address (
+  name varchar(255),
+  street varchar(255),
+  city varchar(255),
+  state varchar(255),
+  country varchar(255),
+  zip integer,
+  phone varchar(255),
+  email varchar(255)
 );
 
 CREATE TABLE rooms (
@@ -31,9 +38,16 @@ CREATE TABLE images (
   room_id integer
 );
 
-CREATE TABLE faq (
+CREATE TABLE faq_sections (
+  id serial primary key,
+  section_name varchar(255),
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+)
+
+CREATE TABLE faq_questions (
   id serial primary key,
   question varchar(255),
   answer text,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   section_name varchar(255)
 );

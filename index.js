@@ -53,19 +53,20 @@
     maxAge: 1000 * 60 * 60 * 24 * 14
   }));
 
-  app.post('/new-question/:id', (req, res) => {
-      let question = req.body.qeustion;
-      let answer = req.body.answer
-      let section = req.body.sectionName
+  app.post('/new-question', (req, res) => {
+    let question = req.body.qeustion;
+    let answer = req.body.answer
+    let section = req.body.sectionName
 
-    dbModule.newQuestion(question, answer).then(() => {
+    dbModule.newQuestion(question, answer, section).then(() => {
+
       res.json({success: true})
     }).catch(err => {
       console.log('newQuestion post err: ', err)
     })
   })
 
-  app.get('/questions', (req, res) => {
+  app.get('/faq', (req, res) => {
 
     dbModule.getFAQ().then((results) => {
       console.log('in get /questions: ', results)
@@ -99,20 +100,20 @@
     })
   })
 
-  app.post('/update-about', (req, res) => {
+  app.post('/update-contact', (req, res) => {
     let text = req.body
     console.log('about post text: ', text)
 
-    dbModule.updateAbout(text).then(() => {
+    dbModule.updateAddress(text).then(() => {
       res.json({success: true})
     }).catch(err => {
       console.log('post updateAbout err: ', )
     })
   })
 
-  app.get('/about', (req, res) => {
+  app.get('/contact', (req, res) => {
 
-    dbModule.getAbout().then(results => {
+    dbModule.getAddress().then(results => {
       console.log('in /about: ', results)
       res.json({data: results})
     }).catch(err => {
@@ -120,26 +121,26 @@
     })
   })
 
-  app.post('/update-home', (req, res) => {
-    console.log('update home: ', req.body)
+  app.post('/new-image', uploader.single('file'), (req, res) => {
+    let page = req.file.pageName
 
-    // s3.upload(req.file).then(() => {
-    //   let file = config.s3Url + req.file.filename
-    //   dbModule.insertPageImage(file, home).then(() => {
-    //     res.json({success: true, image: file})
-    //   })
-    // }).catch(err => {
-    //   console.log('post insertImage err: ', err)
-    //   res.json({error: true})
-    // })
+    s3.upload(req.file).then(() => {
+      let file = config.s3Url + req.file.filename
+      dbModule.insertPageImage(file, page).then(() => {
+        res.json({success: true, image: file})
+      })
+    }).catch(err => {
+      console.log('post insertImage err: ', err)
+      res.json({error: true})
+    })
 
   })
 
-  app.get('/', (req, res) => {
+  app.get('/info', (req, res) => {
 
-    Promise.all([dbModule.getInfo(),
+    Promise.all([dbModule.getImages(),
                 dbModule.getAllRooms()])
-    .then((results) => {
+      .then((results) => {
       console.log('get / results: ', results)
       res.json({data: results})
     }).catch(err => {
@@ -147,10 +148,10 @@
     })
   })
 
-  app.get('*', function(req, res) {
-    res.sendFile(__dirname + '/index.html');
-  });
+    app.get('*', function(req, res) {
+      res.sendFile(__dirname + '/index.html');
+    });
 
-  server.listen(process.env.PORT || 8080)
+    server.listen(process.env.PORT || 8080)
 
-})();
+  })();

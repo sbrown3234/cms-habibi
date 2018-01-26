@@ -26,25 +26,25 @@ const adminRouter = (
   <Provider store={store}>
     <Router history={browserHistory}>
       <Route path="/" component={App}>
-      <Route path="/about" component={About} />
+      {/* <Route path="/about" component={About} />
       <Route path="/rooms" component={Rooms} />
-      <Route path="/faq" component={FAQ} />
-      <IndexRoute component={Home} />
+      <Route path="/faq" component={FAQ} /> */}
+      <IndexRoute component={Home} /> 
     </Route>
   </Router>
 </Provider>
 );
 
-const guestRouter = (
-  <Router history={browserHistory}>
-    <Route path="/" component={App}>
-    <Route path="/about" component={GuestAbout} />
-    <Route path="/rooms" component={GuestRoom} />
-    <Route path="/faq" component={GuestFAQ} />
-    <IndexRoute component={GuestHome} />
-  </Route>
-</Router>
-)
+// const guestRouter = (
+//   <Router history={browserHistory}>
+//     <Route path="/" component={App}>
+//     <Route path="/about" component={GuestAbout} />
+//     <Route path="/rooms" component={GuestRoom} />
+//     <Route path="/faq" component={GuestFAQ} />
+//     <IndexRoute component={GuestHome} />
+//   </Route>
+// </Router>
+// )
 
 if (location.pathname == "/welcome") {
   router = notLoggedInRouter;
