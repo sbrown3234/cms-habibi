@@ -122,12 +122,15 @@
   })
 
   app.post('/new-image', uploader.single('file'), (req, res) => {
-    let page = req.file.pageName
+    console.log('req.file: ', req.file)
+    console.log('req.page: ', req)
 
     s3.upload(req.file).then(() => {
+      console.log('req.file: success')
       let file = config.s3Url + req.file.filename
-      dbModule.insertPageImage(file, page).then(() => {
-        res.json({success: true, image: file})
+      res.json({success: true, image: file})
+      dbModule.insertPageImage(file, req.body.page).then(() => {
+        
       })
     }).catch(err => {
       console.log('post insertImage err: ', err)
@@ -141,7 +144,7 @@
     Promise.all([dbModule.getImages(),
                 dbModule.getAllRooms()])
       .then((results) => {
-      console.log('get / results: ', results)
+      console.log('get /info: ', results)
       res.json({data: results})
     }).catch(err => {
       console.log('home getInfo err: ', err)
