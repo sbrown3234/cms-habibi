@@ -19,8 +19,12 @@ class Home extends React.Component {
     const { deleteImage, handleChange, toggleForm, showForm, images, rooms } = this.props
 
     const carousel = (
-      <div className= "carousel images">
-        {images.map(image => <Link to="/rooms"><img src={image.url} /></Link>)}
+      <div className= "carousel-images">
+        {images.map(image =>
+          <div className="hangout">
+            <Link to="/rooms"><img src={image.url} /></Link>
+          </div>
+        )}
       </div>
     )
 
@@ -37,18 +41,22 @@ class Home extends React.Component {
     )
 
     return (
-      <div className="home-container">
+      <div className="page home-container">
         <h1>Hostel Habibi</h1>
-        {carousel}
-        {(images.length === 0) && <h1>Start uploading some images!</h1>}
-        <button type="button" onClick={()=> toggleForm()}>Add Photo</button>
-        {!!showForm && <ImageForm images={images} toggleForm={toggleForm}/>}
-        <div className="booking">
-        <h1>The <u>Best</u> Backpacking Hostel in San Diego</h1>
-        <Link to="https://hotels.cloudbeds.com/en/reservas/dgcNyK"><div>Book Now</div></Link>
+        <div id="carousel-container">
+          {carousel}
+          {(images.length === 0) && <h1>Start uploading some images!</h1>}
+          <button type="button" onClick={()=> toggleForm()}>Add Photo</button>
         </div>
-        {content}
-        {(rooms.length ==0) && <h1>There are no rooms to show -- start uploading rooms <Link to="/rooms">here</Link></h1>}
+        {!!showForm && <div className="form"><ImageForm images={images} toggleForm={toggleForm}/></div>}
+        <div className="booking">
+        <button className="book"><Link to="https://hotels.cloudbeds.com/en/reservas/dgcNyK">Book</Link></button>
+        </div>
+        <div className="content">
+          <h1>Rooms</h1>
+          {content}
+          {(rooms.length ==0) && <h1>There are no rooms to show -- start uploading rooms <Link to="/rooms">here</Link></h1>}
+        </div>
       </div>
     )
 

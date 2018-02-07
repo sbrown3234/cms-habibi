@@ -1,0 +1,72 @@
+* {
+  margin: auto;
+}
+
+main {
+  width: 100%;
+  height: 100vh;
+  text-align: center;
+}
+
+#nav-bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+}
+
+#icon {
+    height: 50px;
+    width: 100px;
+}
+
+.home-container {
+  width: 100%;
+  height: 100vh;
+}
+
+.carousel-images {
+  width: 100%;
+  height: 400px;
+  display: flex;
+  padding-bottom: 15px;
+}
+
+.hangout {
+  width: 100%;
+  left: 100%;
+  position: absolute;
+}
+
+.on {
+  width: 100%;
+  height: 300px;
+  left: 0%;
+  position: absolute;
+}
+
+.off {
+  width: 100%;
+  height: 300px;
+  left: -100%;
+  position: absolute;
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-content: center;
+}
+
+h1 {
+  background: rgba(57, 251, 218, 0.7);
+  padding: 5px;
+}
+
+#book {
+  border-radius: 15px;
+  height: 50px;
+  width: 75px;
+  background: white;
+}

@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export function getInfo() {
   return axios.get('/info').then(({data}) => {
-    console.log('results: ', data)
+
     return {
       type: "GET_INFO",
       images: data.data[0],

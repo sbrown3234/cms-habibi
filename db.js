@@ -14,7 +14,7 @@
   }
 
   exports.getAllRooms = () => {
-    const q = `SELECT room_name, description, occupancy, price, amenities, url, images.id
+    const q = `SELECT rooms.id, room_name, description, occupancy, price, amenities, url
               FROM rooms
               JOIN images
               ON rooms.id = images.room_id;`;
@@ -37,7 +37,7 @@
   }
 
   exports.newRoom = (name, desc, occupancy, price, amenities) => {
-    const q = `INSERT INTO rooms (room_name, description, occupancy, price, amenities) VALUES ($1, $2, $3, $4, $5)`
+    const q = `INSERT INTO rooms (room_name, description, occupancy, price, amenities) VALUES ($1, $2, $3, $4, $5) RETURNING id;`
     const params = [name, desc, occupancy, price, amenities];
     return db.query(q, params).then(results => {
       console.log('new room insert!')

@@ -130,7 +130,7 @@
       let file = config.s3Url + req.file.filename
       res.json({success: true, image: file})
       dbModule.insertPageImage(file, req.body.page).then(() => {
-        
+
       })
     }).catch(err => {
       console.log('post insertImage err: ', err)
@@ -144,7 +144,7 @@
     Promise.all([dbModule.getImages(),
                 dbModule.getAllRooms()])
       .then((results) => {
-      console.log('get /info: ', results)
+
       res.json({data: results})
     }).catch(err => {
       console.log('home getInfo err: ', err)

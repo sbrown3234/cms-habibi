@@ -1,7 +1,8 @@
 import React from 'react';
-import { newImage } from '.././actions'
+import { newImage } from '.././actions';
+import ImageForm from './image-form'
 
-const ImageForm = ({ images, toggleForm }) => {
+const RoomForm = ({ toggleForm }) => {
   return (<div className="upload">
             <div className="upload preview">
               {!!images && images.map(image => <img className="preview-images" src={image.url} />)}
