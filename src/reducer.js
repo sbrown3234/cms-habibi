@@ -19,6 +19,12 @@ export default function(state = defaultState, action) {
     })
   }
 
+  if (action.type == 'NEW_IMAGE') {
+    state = Object.assign({}, state.images, {
+      images: [...state.images, action.image]
+    })
+  }
+
   if (action.type == 'NEW_QUESTION') {
     state = Object.assign({}, state, {
       questions: [...state.questions, action.question]

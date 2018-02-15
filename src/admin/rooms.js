@@ -16,19 +16,19 @@ class Rooms extends Component {
 
     const { images, toggleForm, rooms } = this.props
 
-    const amenities = (≤
+    const amenities = (
       <ul>
       </ul>
     )
 
     const indivRoom = (
       <div className="room-container">
-        <div className="rooms">
         {rooms.map(room=> {
+        <div className="rooms">
           <h1>{room.room_name}</h1>
           <p>{room.description}</p>
-        })}
         </div>
+        })}
       </div>
     )
 

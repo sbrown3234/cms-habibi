@@ -14,13 +14,16 @@ export function getInfo() {
 }
 
 export function newImage (file, page){
-
   let data = new FormData();
   data.append('file', file)
   data.append('page', page)
 
-  return axios.post('/new-image', data).then((result) => {
-    console.log('in newImage : ', result)
+  return axios.post('/new-image', data).then(({data}) => {
+    console.log('data: ', data, data.image)
+    return {
+      type: "NEW_IMAGE",
+      image: result
+    }
   })
 }
 

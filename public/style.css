@@ -12,7 +12,12 @@ main {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+}
 
+.links {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 #icon {

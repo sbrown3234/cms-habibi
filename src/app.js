@@ -9,10 +9,12 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       showForm: false,
+      showMenu: false
     };
 
     this.handleChange = this.handleChange.bind(this)
     this.toggleForm = this.toggleForm.bind(this)
+    this.toggleMenu = this.toggleMenu.bind(this)
   }
 
   handleChange(e) {
@@ -27,6 +29,12 @@ export default class App extends React.Component {
     })
   }
 
+  toggleMenu() {
+    this.setState({
+      showMenu: !this.state.showMenu
+    })
+  }
+
   componentDidMount(){
 
   }
@@ -36,7 +44,7 @@ export default class App extends React.Component {
   render() {
     console.log('rendering app')
 
-    const { showForm } = this.state
+    const { showForm, showMenu } = this.state
 
     const children = React.cloneElement(this.props.children, {
       showForm,
@@ -46,7 +54,7 @@ export default class App extends React.Component {
 
     return (
       <div id="app">
-        <Nav />
+        <Nav showMenu={showMenu} toggleMenu={this.toggleMenu}/>
         { children }
         <Footer />
       </div>

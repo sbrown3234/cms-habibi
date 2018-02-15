@@ -26,16 +26,17 @@ const adminRouter = (
   <Provider store={store}>
     <Router history={browserHistory}>
       <Route path="/" component={App}>
-      {/* <Route path="/about" component={About} />
-      <Route path="/rooms" component={Rooms} />
+      {/* <Route path="/about" component={About} /> */}
+      {/* <Route path="/rooms" component={Rooms} />
       <Route path="/faq" component={FAQ} /> */}
-      <IndexRoute component={Home} /> 
+      <IndexRoute component={Home} />
     </Route>
   </Router>
 </Provider>
 );
 
 // const guestRouter = (
+//   <Provider store={store}>
 //   <Router history={browserHistory}>
 //     <Route path="/" component={App}>
 //     <Route path="/about" component={GuestAbout} />
@@ -44,10 +45,11 @@ const adminRouter = (
 //     <IndexRoute component={GuestHome} />
 //   </Route>
 // </Router>
+// </Provider>
 // )
 
 if (location.pathname == "/welcome") {
-  router = notLoggedInRouter;
+  router = guestRouter;
 } else {
   router = adminRouter;
 }
